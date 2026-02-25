@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Свинтус - Мега коллекция</title>
+    <!-- Подключение Telegram Web App -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- Шапка с монетами и уровнем -->
+        <div class="stats-bar">
+            <div class="balance-row">
+                <div class="coin-display">
+                    <span class="coin-icon">🐷</span>
+                    <span class="coin-amount" id="coinDisplay">0</span>
+                </div>
+                <div class="level-badge" id="levelDisplay">Уровень 1</div>
+            </div>
+            
+            <!-- Энергия -->
+            <div class="energy-container">
+                <div class="energy-fill" id="energyFill" style="width: 100%;"></div>
+            </div>
+            <div class="energy-text" id="energyText">1000 / 1000</div>
+        </div>
+
+        <!-- Навигационные вкладки -->
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="tap">💰 Тап</button>
+            <button class="tab-btn" data-tab="boost">⚡ Прокачка</button>
+            <button class="tab-btn" data-tab="pigs">🐗 Свины</button>
+            <button class="tab-btn" data-tab="offline">💤 Офлайн</button>
+            <button class="tab-btn" data-tab="stats">📊 Статистика</button>
+        </div>
+
+        <!-- Контент вкладок -->
+        <div class="tab-content">
+            <!-- Вкладка тапания -->
+            <div class="tab-pane active" id="tapTab">
+                <div class="tap-area">
+                    <div class="svin-image" id="tapButton">
+                        <span class="svin-emoji" id="currentPigEmoji">🐗</span>
+                    </div>
+                </div>
+                <div class="tap-info">
+                    <p>Тапай по Свинтусу!</p>
+                    <p id="tapMultiplier">+1 за тап ( -2 энергии )</p>
+                </div>
+            </div>
+
+            <!-- Вкладка прокачки -->
+            <div class="tab-pane" id="boostTab">
+                <h3 class="section-title">Прокачка Свинтуса</h3>
+                <div class="upgrades-grid" id="upgradesList"></div>
+            </div>
+
+            <!-- Вкладка коллекции свинов -->
+            <div class="tab-pane" id="pigsTab">
+                <h3 class="section-title">Коллекция Свинов (13 видов)</h3>
+                <div class="pigs-grid" id="pigsList"></div>
+                <div class="active-pig-info">
+                    <p>Активный свин: <span id="activePigName">Дикий кабан</span> <span id="activePigEmoji">🐗</span></p>
+                </div>
+            </div>
+
+            <!-- Вкладка офлайн заработка -->
+            <div class="tab-pane" id="offlineTab">
+                <h3 class="section-title">💤 Офлайн заработок</h3>
+                <div class="offline-container">
+                    <div class="offline-card">
+                        <div class="offline-emoji">⏰</div>
+                        <div class="offline-info">
+                            <h4>Пассивный доход</h4>
+                            <p>Твои свины работают, пока ты спишь!</p>
+                            <div class="offline-rate" id="offlineRateDisplay">0 монет/час</div>
+                        </div>
+                    </div>
+                    
+                    <div class="offline-collect" id="offlineCollectContainer" style="display: none;">
+                        <div class="offline-amount" id="offlineAmount">0</div>
+                        <button class="offline-button" id="collectOfflineButton">💰 Забрать</button>
+                    </div>
+                    
+                    <div class="offline-upgrade">
+                        <h4>Прокачка офлайн дохода</h4>
+                        <div class="upgrade-item">
+                            <div class="upgrade-info">
+                                <h4>⏱️ Уровень офлайн дохода</h4>
+                                <p id="offlineLevelDesc">Ур. 0: +0 монет/час</p>
+                            </div>
+                            <div class="upgrade-price" id="upgradeOfflineButton">
+                                🐷 <span id="offlinePrice">500</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Вкладка статистики -->
+            <div class="tab-pane" id="statsTab">
+                <h3 class="section-title">Статистика</h3>
+                <div class="stats-list">
+                    <div class="stat-item">
+                        <span>🐷 Всего монет:</span>
+                        <span id="statCoins">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>📈 Уровень:</span>
+                        <span id="statLevel">1</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>⚡ Множитель тапа:</span>
+                        <span id="statMultiplier">1</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>🔋 Макс. энергия:</span>
+                        <span id="statMaxEnergy">1000</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>🔄 Регенерация/сек:</span>
+                        <span id="statRegen">5</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>👆 Всего тапов:</span>
+                        <span id="statTotalTaps">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>🐗 Свинов в коллекции:</span>
+                        <span id="statPigsCollected">1/13</span>
+                    </div>
+                    <div class="stat-item">
+                        <span>💤 Офлайн доход/час:</span>
+                        <span id="statOfflineRate">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Кнопка Telegram -->
+    <div id="telegramButtonContainer" style="position: fixed; bottom: 20px; left: 0; right: 0; display: flex; justify-content: center; pointer-events: none; z-index: 1000;">
+        <button id="telegramShareButton" style="background: #2a9d8f; color: white; border: none; border-radius: 40px; padding: 12px 30px; font-size: 16px; font-weight: 600; box-shadow: 0 4px 15px rgba(42, 157, 143, 0.5); pointer-events: auto; display: none;">
+            🔗 Поделиться
+        </button>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

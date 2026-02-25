@@ -1,0 +1,419 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(145deg, #2b1a2e 0%, #1f1321 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    touch-action: manipulation;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(25, 15, 20, 0.9);
+    backdrop-filter: blur(15px);
+    border-radius: 48px 48px 32px 32px;
+    box-shadow: 0 25px 50px -8px rgba(0, 0, 0, 0.6), inset 0 2px 4px rgba(255, 215, 0, 0.15);
+    border: 1px solid rgba(255, 200, 50, 0.2);
+    overflow: hidden;
+    padding: 20px 16px 10px 16px;
+    margin-bottom: 60px;
+}
+
+.stats-bar {
+    background: rgba(48, 30, 36, 0.8);
+    border-radius: 100px;
+    padding: 14px 18px;
+    border: 1px solid #ffd96640;
+    box-shadow: inset 0 0 10px #ffb34720;
+    margin-bottom: 20px;
+}
+
+.balance-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.coin-display {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #32242b;
+    padding: 6px 16px 6px 12px;
+    border-radius: 40px;
+    border: 1px solid #f6b83e;
+}
+
+.coin-icon {
+    font-size: 28px;
+    filter: drop-shadow(0 0 4px gold);
+}
+
+.coin-amount {
+    font-weight: 800;
+    font-size: 26px;
+    color: #ffdf99;
+    text-shadow: 0 2px 5px #ff9900;
+}
+
+.level-badge {
+    background: #8b5f4c;
+    border-radius: 30px;
+    padding: 6px 18px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: 0.5px;
+    border: 1px solid #efb277;
+    box-shadow: inset 0 -2px 0 #4f2e28;
+}
+
+.energy-container {
+    width: 100%;
+    background: #34232b;
+    border-radius: 30px;
+    height: 18px;
+    border: 1px solid #fdab5d;
+    overflow: hidden;
+    position: relative;
+    margin-top: 5px;
+}
+
+.energy-fill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(90deg, #f7b733, #fcda7a);
+    border-radius: 30px;
+    box-shadow: 0 0 12px #ffb347;
+    transition: width 0.1s ease;
+}
+
+.energy-text {
+    text-align: right;
+    font-size: 13px;
+    color: #ffcf9a;
+    font-weight: 500;
+    margin-top: 4px;
+    padding-right: 6px;
+}
+
+.tabs {
+    display: flex;
+    gap: 8px;
+    background: #261a21;
+    padding: 6px;
+    border-radius: 40px;
+    margin: 20px 0 15px 0;
+    border: 1px solid #5a3f34;
+}
+
+.tab-btn {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 12px 0;
+    border-radius: 30px;
+    color: #b59e8a;
+    font-weight: 600;
+    font-size: 16px;
+    transition: 0.2s;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.tab-btn.active {
+    background: #efb155;
+    color: #281a1f;
+    box-shadow: 0 4px 10px #ffb84d;
+    font-weight: 700;
+}
+
+.tab-content {
+    min-height: 380px;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+.section-title {
+    text-align: center;
+    color: #ffd58c;
+    margin-bottom: 15px;
+    font-size: 24px;
+    text-shadow: 0 2px 5px #ff8c00;
+}
+
+.tap-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.svin-image {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle at 30% 30%, #d99f6c, #8b5a3c);
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 6px solid #ffbf69;
+    box-shadow: 0 20px 30px rgba(0,0,0,0.6), 0 0 0 4px #ffd96650;
+    transition: transform 0.06s cubic-bezier(0.1, 0.7, 0.3, 1.5);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.svin-image:active {
+    transform: scale(0.94);
+}
+
+.svin-emoji {
+    font-size: 120px;
+    filter: drop-shadow(0 8px 5px #2f140e);
+}
+
+.tap-info {
+    text-align: center;
+    color: #ffdcaa;
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.tap-info p:last-child {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fdd28c;
+}
+
+.upgrades-grid, .pigs-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 5px 5px 15px 5px;
+}
+
+.upgrade-item, .pig-item {
+    background: #2d2128;
+    border-radius: 28px;
+    padding: 15px 18px;
+    border: 1px solid #c5954e;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #ffefcf;
+}
+
+.pig-item {
+    cursor: pointer;
+    transition: 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.pig-item:active {
+    background: #3e2d33;
+    transform: scale(0.98);
+}
+
+.pig-item.locked {
+    opacity: 0.5;
+    filter: grayscale(0.8);
+}
+
+.pig-item.active-pig {
+    border: 3px solid #ffd966;
+    box-shadow: 0 0 15px #ffb347;
+}
+
+.upgrade-info h4, .pig-info h4 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #ffd58c;
+}
+
+.upgrade-info p, .pig-info p {
+    font-size: 14px;
+    color: #bfa07e;
+}
+
+.pig-price {
+    background: #49352b;
+    border-radius: 40px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #f3b259;
+    font-weight: 700;
+    font-size: 18px;
+    color: #fad37d;
+}
+
+.upgrade-price {
+    background: #49352b;
+    border-radius: 40px;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid #f3b259;
+    font-weight: 700;
+    font-size: 18px;
+    color: #fad37d;
+    cursor: pointer;
+    transition: 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.upgrade-price:active {
+    background: #6d4c38;
+    transform: scale(0.96);
+}
+
+.active-pig-info {
+    margin-top: 15px;
+    text-align: center;
+    background: #32242b;
+    border-radius: 40px;
+    padding: 12px;
+    border: 1px solid #f6b83e;
+    color: #ffdcaa;
+    font-size: 18px;
+}
+
+.offline-container {
+    background: #2d2128;
+    border-radius: 32px;
+    padding: 20px;
+    border: 1px solid #c5954e;
+}
+
+.offline-card {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    background: #1f151b;
+    padding: 15px;
+    border-radius: 24px;
+}
+
+.offline-emoji {
+    font-size: 48px;
+    background: #8b5f4c;
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffbf69;
+}
+
+.offline-info h4 {
+    color: #ffd58c;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.offline-info p {
+    color: #bfa07e;
+    font-size: 14px;
+}
+
+.offline-rate {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fdd28c;
+    margin-top: 5px;
+}
+
+.offline-collect {
+    background: #1f6d4a;
+    border-radius: 30px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    border: 2px solid #ffd966;
+}
+
+.offline-amount {
+    font-size: 28px;
+    font-weight: 800;
+    color: #ffdf99;
+}
+
+.offline-button {
+    background: #ffb84d;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 40px;
+    font-weight: 700;
+    font-size: 18px;
+    color: #281a1f;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.offline-button:active {
+    transform: scale(0.95);
+    background: #ffa01e;
+}
+
+.offline-upgrade h4 {
+    color: #ffd58c;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.stats-list {
+    background: #22181f;
+    border-radius: 32px;
+    padding: 20px;
+    border: 1px solid #b57c4b;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 5px;
+    border-bottom: 1px solid #573e31;
+    color: #fbe5bf;
+    font-size: 18px;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+#telegramShareButton {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    transition: all 0.2s;
+}
+
+#telegramShareButton:active {
+    transform: scale(0.95);
+    background: #21867a !important;
+}
